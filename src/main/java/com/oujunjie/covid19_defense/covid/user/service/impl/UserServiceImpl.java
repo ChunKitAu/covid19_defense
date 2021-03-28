@@ -41,12 +41,19 @@ public class UserServiceImpl implements UserService {
             for (int i = 0; i < list.size(); i++) {
                 String name = (String) list.get(i)[0];
                 String uid = list.get(i)[1].toString();
+                String college = (String) list.get(i)[2];
+                String grade = (String) list.get(i)[3];
 
                 User dbUser = this.getUserByNameAndUid(name, uid);
                 if (dbUser != null)
                     throw new UserException("user:" + name + " uid: " + uid + " already exist");
 
-                users.add(new User().setName(name).setUid(uid));
+                users.add(new User()
+                        .setName(name)
+                        .setUid(uid)
+                        .setCollege(college)
+                        .setGrade(grade)
+                );
             }
 
             this.insertUsers(users);

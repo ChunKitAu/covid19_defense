@@ -42,6 +42,16 @@ public class User {
     private String password;
 
     /**
+     * 学院
+     */
+    private String college;
+
+    /**
+     * 年级
+     */
+    private String grade;
+
+    /**
      * 身份
      */
     private Integer role;

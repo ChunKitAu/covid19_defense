@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oujunjie.covid19_defense.covid.user.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.oujunjie.covid19_defense.covid.user.entity.po.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+  </resultMap>
+</mapper>

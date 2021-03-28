@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator/config.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 配置通用Mapper的MBG插件相关信息 -->
+        <plugin type="${mapper.plugin}">
+            <property name="mappers" value="${mapper.Mapper}"/>
+        </plugin>
+
+        <!-- 配置连接数据库的基本信息 -->
+        <jdbcConnection
+                driverClass="${jdbc.driverClass}"
+                connectionURL="${jdbc.url}"
+                userId="${jdbc.user}"
+                password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!-- 配置Java实体类存放位置 -->
+        <javaModelGenerator
+                targetPackage="com.oujunjie.covid19_defense.covid.user.entity.po"
+                targetProject ="src/main/java"
+                />
+
+        <!-- 配置XxxMapper.xml存放位置 -->
+        <sqlMapGenerator
+                targetPackage="mybatis.mapper"
+                targetProject="src/main/resources"/>
+
+        <!-- 配置XxxMapper.java存放位置 -->
+        <javaClientGenerator
+                targetPackage="com.oujunjie.covid19_defense.covid.user.dao"
+                targetProject ="src/main/java"
+                type="XMLMAPPER"/>
+
+        <!--建立表对应的entity、dao、xxx.xml文件-->
+
+<!--        <table tableName="city" domainObjectName="City">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+
+<!--        <table tableName="province" domainObjectName="Province">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+
+        <table tableName="cuser" domainObjectName="User">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+
+
+
+
+    </context>
+</generatorConfiguration>

@@ -48,6 +48,12 @@ spring:
   jackson:
     date-format: yyyy-MM-dd hh:mm:ss
     time-zone: GMT+8
+############## file ####################
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
 
 ############ mybatis ##################
 mybatis:

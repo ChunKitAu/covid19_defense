@@ -1,5 +1,6 @@
 package com.oujunjie.covid19_defense;
 
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.oujunjie.covid19_defense.covid.amap.entity.CommRet;
@@ -54,4 +55,10 @@ public class Test {
         arr.add(2);
         arr.add(3);
     }
+
+    @org.junit.Test
+    public void testMd5(){
+        System.out.println(SecureUtil.md5().digestHex("123456"));
+    }
+
 }

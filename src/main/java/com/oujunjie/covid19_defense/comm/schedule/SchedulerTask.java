@@ -27,7 +27,7 @@ public class SchedulerTask {
 
     // 每隔一个钟获取数据
 //    @Scheduled(cron = "0 0 0/1 * * ?")
-    @Scheduled(cron = "0 0/1 * * * ?")
+//    @Scheduled(cron = "0 0/1 * * * ?")
 //    @PostConstruct
     private void getCovData() {
         logger.info("get data from nCoV date=" + new Date());

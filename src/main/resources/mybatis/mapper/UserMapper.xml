@@ -11,5 +11,7 @@
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="mtime" jdbcType="TIMESTAMP" property="mtime" />
   </resultMap>
 </mapper>

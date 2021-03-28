@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -45,4 +46,13 @@ public class User {
      */
     private Integer role;
 
+    /**
+     * 创建时间
+     */
+    private Date ctime;
+
+    /**
+     * 修改时间
+     */
+    private Date mtime;
 }

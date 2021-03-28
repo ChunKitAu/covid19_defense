@@ -1,8 +1,16 @@
 package com.oujunjie.covid19_defense.covid.user.entity.po;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import javax.persistence.*;
 
-@Table(name = "cuser")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 public class User {
     /**
      * 主键

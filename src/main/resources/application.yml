@@ -61,11 +61,14 @@ mybatis:
     cache-enabled: true
     call-setters-on-nulls: true
     mapUnderscoreToCamelCase: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mybatis/mapper/*.xml
 
+#logging:
+#  level:
+#    com.oujunjie.covid19_defense.covid.*: debug
 
 
-
-########################
+############   AMAP  ##############
 AmapKey: 47b4f228e9d9bebaf6f64246646e15b8
 SId: 288696

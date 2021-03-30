@@ -45,4 +45,19 @@ public class CovidDataServiceImplTest extends BaseTest {
         List<City> curCovidArea = service.getCurCovidCity();
         System.out.println(curCovidArea);
     }
+
+    @Test
+    public void getLatestCityByLocationId() {
+        City city = service.getLatestCityByLocationId(441800);
+        System.out.println(city);
+    }
+
+    @Test
+    public void saveCovData() {
+        try{
+            service.saveCovData();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

@@ -13,4 +13,7 @@ public interface CovidDataService {
     void saveCovData() throws Exception;
 
     List<City> getCurCovidCity();
+
+
+    City getLatestCityByLocationId(Integer locationID);
 }

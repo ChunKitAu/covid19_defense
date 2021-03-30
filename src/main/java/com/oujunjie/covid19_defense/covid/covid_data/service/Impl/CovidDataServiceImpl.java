@@ -66,7 +66,7 @@ public class CovidDataServiceImpl implements CovidDataService {
                 continue;
 
             ArrayList<Long> insertCityIds = new ArrayList<>();
-            if (!CollectionUtils.isEmpty(insertCityIds)) {
+            if (area.getCities() != null) {
                 insertCityIds = this.handInsertCity(area.getCities(), area.getUpdateTime(), localtionIds);
             }
             String cityIdsStr = JSONUtil.parse(insertCityIds).toString();
@@ -82,9 +82,10 @@ public class CovidDataServiceImpl implements CovidDataService {
             province.setLocationId(area.getLocationId());
             province.setVersion(maxVersion + 1);
 
-            // 港澳台
             if (area.getCurrentConfirmedCount() > 0 && !area.getProvinceName().equals(china)) {
-                localtionIds.add(area.getLocationId());
+                // 港澳台
+                if (area.getLocationId() == 810000|| area.getLocationId() == 710000 || area.getLocationId() == 820000)
+                    localtionIds.add(area.getLocationId());
             }
             provinceDao.insert(province);
         }
@@ -163,6 +164,18 @@ public class CovidDataServiceImpl implements CovidDataService {
         return retCity;
     }
 
+    @Override
+    public City getLatestCityByLocationId(Integer locationID) {
+        Example example = new Example(Province.class);
+        example.orderBy("id").desc();
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("locationId", locationID);
+
+        List<City> ret = cityDao.selectByExample(example);
+        if (CollectionUtils.isEmpty(ret))
+            return null;
+        return ret.get(0);
+    }
 
     public List<Province> getLatestProvinces() {
         Long maxVersion = this.getMaxVersion();

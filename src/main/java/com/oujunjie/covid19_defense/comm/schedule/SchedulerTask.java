@@ -29,7 +29,7 @@ public class SchedulerTask {
 //    @Scheduled(cron = "0 0 0/1 * * ?")
 //    @Scheduled(cron = "0 0/1 * * * ?")
 //    @PostConstruct
-    private void getCovData() {
+    public void getCovData() {
         logger.info("get data from nCoV date=" + new Date());
         try {
             covidDataService.saveCovData();

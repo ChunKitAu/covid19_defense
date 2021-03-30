@@ -41,8 +41,8 @@ public class POIUtils {
             return list;
         }catch (Exception e){
             e.printStackTrace();
+            throw new POIException("excel format fail,please check excel");
         }
-        return null;
     }
 
 

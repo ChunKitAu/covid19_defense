@@ -8,6 +8,8 @@ import com.oujunjie.covid19_defense.comm.utils.POIUtils;
 import com.oujunjie.covid19_defense.covid.user.dao.UserDao;
 import com.oujunjie.covid19_defense.covid.user.entity.po.User;
 import com.oujunjie.covid19_defense.covid.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @auther ChunKitAu
@@ -27,6 +30,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     UserDao userDao;
@@ -37,6 +42,7 @@ public class UserServiceImpl implements UserService {
             InputStream inputStream = file.getInputStream();
             List<Object[]> list = POIUtils.handerImportExcel(inputStream);
             ArrayList<User> users = new ArrayList<>();
+            ArrayList<String> uids = new ArrayList<>();
 
             for (int i = 0; i < list.size(); i++) {
                 String name = (String) list.get(i)[0];
@@ -44,9 +50,15 @@ public class UserServiceImpl implements UserService {
                 String college = (String) list.get(i)[2];
                 String grade = (String) list.get(i)[3];
 
-                User dbUser = this.getUserByNameAndUid(name, uid);
+                // 判断当前Excel uid是否重复
+                if (uids.contains(uid)) {
+                    throw new UserException("uid: " + uid + "conflict");
+                }
+                uids.add(uid);
+
+                User dbUser = this.getUserByUid(uid);
                 if (dbUser != null)
-                    throw new UserException("user:" + name + " uid: " + uid + " already exist");
+                    throw new UserException(" uid: " + uid + " already exist");
 
                 users.add(new User()
                         .setName(name)
@@ -66,6 +78,32 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    public User getUserByOpenId(String openId) {
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("openId", openId);
+        List<User> users = userDao.selectByExample(example);
+        if (CollectionUtils.isEmpty(users)) {
+            return null;
+        }
+        return users.get(0);
+    }
+
+
+    @Override
+    public CommonResult BindUser(String openId, String uid) {
+        User dbUser = this.getUserByUid(uid);
+        if (dbUser == null) {
+            throw new UserException("please check uid");
+        }else if (!dbUser.getOpenId().equals("")){
+            throw new UserException("current user had bind");
+        }
+        dbUser.setOpenId(openId);
+
+        userDao.updateByPrimaryKey(dbUser);
+        return CommonResult.success();
+    }
+
+
     @Transactional
     public void insertUsers(ArrayList<User> users) {
         users.forEach(e -> {
@@ -73,15 +111,14 @@ public class UserServiceImpl implements UserService {
             e.setRole(0);
             e.setCtime(new Date());
             e.setMtime(new Date());
+            e.setOpenId("");
             userDao.insert(e);
         });
     }
 
-
-    public User getUserByNameAndUid(String name, String uid) {
+    public User getUserByUid(String uid) {
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("name", name);
         criteria.andEqualTo("uid", uid);
 
         List<User> users = userDao.selectByExample(example);

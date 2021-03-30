@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.oujunjie.covid19_defense.covid.position.dao.PositionMapper" >
+<mapper namespace="com.oujunjie.covid19_defense.covid.position.dao.PositionDao" >
   <resultMap id="BaseResultMap" type="com.oujunjie.covid19_defense.covid.position.entity.po.Position" >
     <!--
       WARNING - @mbg.generated
